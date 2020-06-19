@@ -20,6 +20,7 @@
         },
         methods: {
             async onSubmit() {
+                console.log(JSON.stringify({email: this.email}));
                 if (this.validEmail(this.email)) {
                     const result = await fetch(`api/sendForm`, {
                         method: 'POST',
@@ -29,7 +30,7 @@
                         body: JSON.stringify({email: this.email})
                     });
                     const data = await result;
-                    console.log(data);
+
 
 
                 }
