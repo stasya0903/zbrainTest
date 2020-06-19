@@ -1963,6 +1963,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1980,16 +1985,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(JSON.stringify({
-                  email: _this.email
-                }));
-
                 if (!_this.validEmail(_this.email)) {
-                  _context.next = 9;
+                  _context.next = 10;
                   break;
                 }
 
-                _context.next = 4;
+                _context.next = 3;
                 return fetch("api/sendForm", {
                   method: 'POST',
                   headers: {
@@ -2000,16 +2001,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   })
                 });
 
-              case 4:
+              case 3:
                 result = _context.sent;
-                _context.next = 7;
+                _context.next = 6;
                 return result.json();
 
-              case 7:
+              case 6:
                 data = _context.sent;
                 _this.message = data.message;
+                _context.next = 11;
+                break;
 
-              case 9:
+              case 10:
+                _this.message = "введеный невалидный email";
+
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -20420,9 +20426,16 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "form-group row" }, [
-              _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-center",
+                  attrs: { for: "email" }
+                },
+                [_vm._v("Email")]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "col-4" }, [
                 _c("input", {
                   directives: [
                     {
@@ -20432,7 +20445,8 @@ var render = function() {
                       expression: "email"
                     }
                   ],
-                  attrs: { id: "email", type: "email" },
+                  staticClass: "form-control",
+                  attrs: { id: "email", type: "text" },
                   domProps: { value: _vm.email },
                   on: {
                     input: function($event) {
@@ -20443,17 +20457,31 @@ var render = function() {
                     }
                   }
                 })
-              ]),
-              _vm._v(" "),
-              _c("input", { attrs: { type: "submit" } })
-            ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
           ]
         )
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c("div", { staticClass: "col-md-8 offset-md-4 mt-2" }, [
+        _c("input", {
+          staticClass: "btn btn-outline-secondary",
+          attrs: { type: "submit" }
+        })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -20,12 +20,17 @@
             <div class="card-body">
                 <form v-on:submit.prevent="onSubmit">
                     <div class="form-group row">
-                        <label for="email">Email</label>
-                        <div class="col-md-6">
-                            <input id='email' type="email" v-model="email">
+                        <label for="email"
+                               class="col-md-4 col-form-label text-md-center">Email</label>
+                        <div class="col-4">
+                            <input id='email' type="text" v-model="email"
+                                   class="form-control">
                         </div>
-                        <input type="submit">
-
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8 offset-md-4 mt-2">
+                            <input type="submit" class="btn btn-outline-secondary">
+                        </div>
                     </div>
                 </form>
             </div>
@@ -44,7 +49,6 @@
         },
         methods: {
             async onSubmit() {
-                console.log(JSON.stringify({email: this.email}));
                 if (this.validEmail(this.email)) {
                     const result = await fetch(`api/sendForm`, {
                         method: 'POST',
@@ -55,8 +59,8 @@
                     });
                     let data = await result.json();
                     this.message = data.message;
-
-
+                } else {
+                    this.message = "введеный невалидный email"
                 }
 
             },

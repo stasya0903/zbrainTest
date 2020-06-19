@@ -20,9 +20,8 @@ class FormController extends Controller
     {
         $respondData = [
             'message' => 'Данные успешно обработаны',
-            'status' => 500
+            'status' => 200
         ];
-        $email = $request->json()->all();
         $result = User::firstOrCreate($this->validateEmail($request));
         if (!$result) {
             $respondData['message'] = 'Ошибка сервера';
