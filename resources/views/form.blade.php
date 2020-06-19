@@ -13,13 +13,15 @@
     <!-- Styles -->
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
 <body>
-<div id="app">
+<div id="app" class="container">
+    <div class="row justify-content-center">
     <email-submit-form></email-submit-form>
+    </div>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>

@@ -1,12 +1,36 @@
 <template>
-    <form v-on:submit.prevent="onSubmit">
+    <div class="col-8 mt-5">
+        <div class="card">
+            <div class="card-header">
+                Введите email
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show"
+                 role="alert"
+                 v-show="message">
+                {{message}}
+                <button type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                        @click="message=null">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-        <label for="email">Email</label>
-        <input id='email' type="email" v-model="email">
-        <input type="submit">
+            <div class="card-body">
+                <form v-on:submit.prevent="onSubmit">
+                    <div class="form-group row">
+                        <label for="email">Email</label>
+                        <div class="col-md-6">
+                            <input id='email' type="email" v-model="email">
+                        </div>
+                        <input type="submit">
 
-
-    </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -14,7 +38,7 @@
         data() {
             return {
                 email: ' ',
-                errors: ' '
+                message: null
 
             }
         },
@@ -29,8 +53,8 @@
                         },
                         body: JSON.stringify({email: this.email})
                     });
-                    const data = await result;
-
+                    let data = await result.json();
+                    this.message = data.message;
 
 
                 }

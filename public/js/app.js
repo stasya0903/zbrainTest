@@ -1939,11 +1939,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       email: ' ',
-      errors: ' '
+      message: null
     };
   },
   methods: {
@@ -1961,7 +1985,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }));
 
                 if (!_this.validEmail(_this.email)) {
-                  _context.next = 8;
+                  _context.next = 9;
                   break;
                 }
 
@@ -1979,12 +2003,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 result = _context.sent;
                 _context.next = 7;
-                return result;
+                return result.json();
 
               case 7:
                 data = _context.sent;
+                _this.message = data.message;
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -20340,43 +20365,93 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.onSubmit($event)
-        }
-      }
-    },
-    [
-      _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+  return _c("div", { staticClass: "col-8 mt-5" }, [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _vm._v("\n            Введите email\n        ")
+      ]),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.email,
-            expression: "email"
-          }
-        ],
-        attrs: { id: "email", type: "email" },
-        domProps: { value: _vm.email },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.message,
+              expression: "message"
             }
-            _vm.email = $event.target.value
-          }
-        }
-      }),
+          ],
+          staticClass: "alert alert-warning alert-dismissible fade show",
+          attrs: { role: "alert" }
+        },
+        [
+          _vm._v("\n            " + _vm._s(_vm.message) + "\n            "),
+          _c(
+            "button",
+            {
+              staticClass: "close",
+              attrs: {
+                type: "button",
+                "data-dismiss": "alert",
+                "aria-label": "Close"
+              },
+              on: {
+                click: function($event) {
+                  _vm.message = null
+                }
+              }
+            },
+            [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+          )
+        ]
+      ),
       _vm._v(" "),
-      _c("input", { attrs: { type: "submit" } })
-    ]
-  )
+      _c("div", { staticClass: "card-body" }, [
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.onSubmit($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.email,
+                      expression: "email"
+                    }
+                  ],
+                  attrs: { id: "email", type: "email" },
+                  domProps: { value: _vm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.email = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("input", { attrs: { type: "submit" } })
+            ])
+          ]
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
