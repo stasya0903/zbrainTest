@@ -24,8 +24,8 @@ class FormController extends Controller
         ];
         $result = User::firstOrCreate($this->validateEmail($request));
         if (!$result) {
-            $respondData['message'] = 'Ошибка сервера';
-            $respondData['status'] = 500;
+            $respondData['message'] = 'Ошибка загрузки';
+            $respondData['status'] = 400;
         }
 
         return response(['message' => $respondData['message'], $respondData['status']]);
