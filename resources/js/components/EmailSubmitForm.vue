@@ -42,7 +42,7 @@
     export default {
         data() {
             return {
-                email: ' ',
+                email: '',
                 message: null
 
             }
@@ -50,23 +50,24 @@
         methods: {
             async onSubmit() {
                 if (this.validEmail(this.email)) {
-                    const result = await fetch(`api/sendForm`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({email: this.email})
-                    });
-                    let data = await result.json();
-                    this.message = data.message;
+                    axios.post(`api/sendForm`, {email: this.email})
+                        .then((res) => {
+                            let data = res.data;
+                            this.message = data.message
+
+                        })
+                        .catch((err) => {
+                            this.message =  err.message
+                        })
+
                 } else {
-                    this.message = "введеный невалидный email"
+                    this.message = "введен невалидный email"
                 }
 
             },
             validEmail(email) {
-                var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(email);
+                let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/;
+                return reg.test(email);
             }
         }
 

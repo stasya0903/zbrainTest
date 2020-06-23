@@ -1971,7 +1971,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: ' ',
+      email: '',
       message: null
     };
   },
@@ -1980,42 +1980,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var result, data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!_this.validEmail(_this.email)) {
-                  _context.next = 10;
-                  break;
+                if (_this.validEmail(_this.email)) {
+                  axios.post("api/sendForm", {
+                    email: _this.email
+                  }).then(function (res) {
+                    var data = res.data;
+                    _this.message = data.message;
+                  })["catch"](function (err) {
+                    _this.message = err.message;
+                  });
+                } else {
+                  _this.message = "введен невалидный email";
                 }
 
-                _context.next = 3;
-                return fetch("api/sendForm", {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    email: _this.email
-                  })
-                });
-
-              case 3:
-                result = _context.sent;
-                _context.next = 6;
-                return result.json();
-
-              case 6:
-                data = _context.sent;
-                _this.message = data.message;
-                _context.next = 11;
-                break;
-
-              case 10:
-                _this.message = "введеный невалидный email";
-
-              case 11:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -2024,8 +2006,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     validEmail: function validEmail(email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+      var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/;
+      return reg.test(email);
     }
   }
 });

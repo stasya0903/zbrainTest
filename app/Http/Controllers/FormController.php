@@ -19,12 +19,21 @@ class FormController extends Controller
     public function sendForm(Request $request)
     {
         $respondData = [
-            'message' => 'Данные успешно обработаны',
+            'message' => 'Почтовый адресс успешно добавлен',
             'status' => 200
         ];
-        $result = User::create($this->validateEmail($request));
+        $validator = $this->getValidatorForEmail($request);
+
+        if ($validator->fails()) {
+            $respondData['message'] = $validator->errors()->first('email');
+            $respondData['status'] = 400;
+            return response(['message' => $respondData['message'], $respondData['status']]);
+
+        }
+
+        $result = User::create($request->json()->all());
         if (!$result) {
-            $respondData['message'] = 'Ошибка загрузки';
+            $respondData['message'] = 'Ошибка добавления в базу';
             $respondData['status'] = 400;
         }
 
@@ -32,11 +41,20 @@ class FormController extends Controller
 
     }
 
-    public function validateEmail(Request $request)
+    public function getValidatorForEmail(Request $request)
     {
-        return Validator::make($request->json()->all(), [
-            'email' => 'email:rfc,dns|unique:users',
-        ])->validate();
+        $rules = [
+            'email' => 'email:rfc,dns|unique:users'
+        ];
+        $messages =
+            [
+                'email.email' => 'Неверный формат электронной почты',
+                'email.unique' => 'Такой почтовый адресс уже есть в базе',
+
+            ];
+
+
+        return Validator::make($request->json()->all(), $rules, $messages);
     }
 
 }
