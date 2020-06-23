@@ -46,14 +46,10 @@ class FormController extends Controller
         $rules = [
             'email' => 'email:rfc,dns|unique:users'
         ];
-        $messages =
-            [
-                'email.email' => 'Неверный формат электронной почты',
-                'email.unique' => 'Такой почтовый адресс уже есть в базе',
-
-            ];
-
-
+        $messages = [
+            'email.email' => 'Неверный формат электронной почты',
+            'email.unique' => 'Такой почтовый адресс уже есть в базе',
+        ];
         return Validator::make($request->json()->all(), $rules, $messages);
     }
 
