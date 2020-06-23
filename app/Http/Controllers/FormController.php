@@ -22,7 +22,7 @@ class FormController extends Controller
             'message' => 'Данные успешно обработаны',
             'status' => 200
         ];
-        $result = User::firstOrCreate($this->validateEmail($request));
+        $result = User::create($this->validateEmail($request));
         if (!$result) {
             $respondData['message'] = 'Ошибка загрузки';
             $respondData['status'] = 400;
@@ -35,7 +35,7 @@ class FormController extends Controller
     public function validateEmail(Request $request)
     {
         return Validator::make($request->json()->all(), [
-            'email' => 'email:rfc,dns',
+            'email' => 'email:rfc,dns|unique:users',
         ])->validate();
     }
 
